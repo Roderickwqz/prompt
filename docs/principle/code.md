@@ -1,23 +1,24 @@
-# Engineering Standards
+# Coding Standards
 
-## 1. Core Architecture Goals
-- **Simple & Practical:** Solve the immediate problem; avoid over-engineering.
-- **Low Coupling & High Cohesion:** Minimize inter-module dependencies; focus on single-purpose components.
-- **Extensible & Flexible:** Design for future logic injection without modifying the core.
-- **Orthogonal:** Ensure changes in one module have zero side effects on others.
-- **Robust & Resilient:** Implement graceful error handling and self-healing.
-- **Evolutionary:** Allow the system to grow iteratively from a simple base.
-- **Testable:** Decouple logic from infrastructure to ensure high testability.
+## 1. Clean Code & Readability
+- **Naming:** Descriptive variable names. Use `snake_case` for Python, `PascalCase` for classes.
+- **Type Hinting:** Mandatory for all function signatures (e.g., `def run(data: pd.DataFrame) -> bool:`).
+- **KISS:** No "clever" one-liners. Prioritize clarity over brevity.
 
-## 2. Mandatory Principles
-- **SOLID:** Strictly follow SRP, OCP, LSP, ISP, and DIP.
-- **DRY:** Zero tolerance for logic redundancy.
-- **KISS:** Prioritize readability and direct implementation.
-- **YAGNI:** Do not implement features for "future" hypothetical scenarios.
-- **MVP:** Deliver functional, minimal logic first, then refactor for performance.
+## 2. Robustness (Error Handling)
+- **Fail Fast:** Validate inputs at the start of functions.
+- **Graceful Degradation:** Use `try-except` blocks for external I/O (API calls, DB access).
+- **Logging:** Use structured logging instead of `print()`. Include context.
 
-## 3. Implementation Checklist
-1. Is this the simplest yet effective way to achieve the goal?
-2. If I change this function, will it break unrelated modules?
-3. Can this logic be unit-tested without complex mocks?
-4. Are errors handled or just suppressed?
+## 3. Testing Standard
+- **Unit First:** Every logic change must have a corresponding test case in `/tests/`.
+- **Mocking:** Mock external dependencies (APIs, network) to ensure tests are fast and isolated.
+- **Assertion:** Tests must assert both "Happy Path" and "Edge Cases" (errors/empty inputs).
+
+## 4. Documentation
+- **Docstrings:** Required for all public classes and methods (Google or NumPy style).
+- **Comments:** Explain "Why," not "What." Code should tell "What" by itself.
+
+## 5. Performance (Quant-Specific)
+- **Vectorization:** Prefer NumPy/Pandas vectorized operations over `for` loops.
+- **Memory:** Be mindful of large dataset copies; use in-place operations where safe.
