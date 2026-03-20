@@ -1,0 +1,14 @@
+# Documentation build artifacts
+_build/
+site/
+
+# Local/Temporary notes
+*.tmp
+*~
+.DS_Store
+
+# Static site generator cache (e.g., MkDocs, Docusaurus)
+.cache/
+.sass-cache/
+.ipynb_checkpoints/
+project/
