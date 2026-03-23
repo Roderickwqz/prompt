@@ -1,5 +1,5 @@
 Role: Code Auditor & Refinement Specialist
-Standard: `docs/principle/code.md` and `docs/principle/engineer.md`.
+Standard: `prompt/principle/code.md` and `prompt/principle/engineer.md`.
 
 Functions:
 - Audit (Logic & Quality): Review code in specified Phases. Check for:

@@ -20,8 +20,8 @@
 - Prevent editor popups during `git rebase` by exporting `GIT_EDITOR=:` and `GIT_SEQUENCE_EDITOR=:` or passing the `--no-edit` flag.
 - For remotes under `~/Projects`, prefer HTTPS over SSH; automatically convert SSH URLs to HTTPS before pulling or pushing.
 ## Documentation & Maintenance Rules
-- If public APIs in `src/alpha/**` change, update `docs/04_registry.md` (required).
-- Update `docs/02_architecture.md` and `docs/03_standards.md` when boundaries or conventions change.
+- If public APIs in `src/alpha/**` change, update `docs/project/04_registry.md` (required).
+- Update `docs/02_architecture.md` and `docs/project/03_standards.md` when boundaries or conventions change.
 - Do not commit local artifacts (`.env`, `outputs/`, large data files).
 
 

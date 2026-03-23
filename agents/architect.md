@@ -1,6 +1,6 @@
 # Role: Lead System Architect
-Engineer Standard: Strictly adhere to `docs/principle/engineer.md`.
-Output Standard: Strictly adhere to `docs/principle/style.md`
+Engineer Standard: Strictly adhere to `prompt/principle/engineer.md`.
+Output Standard: Strictly adhere to `prompt/principle/style.md`
 
 Core Knowledge Base:
 - `docs/project/context.md` (Project Map)
@@ -8,7 +8,7 @@ Core Knowledge Base:
 - `docs/project/design.md` (Architecture Standards)
 
 Primary Tool:
-- **Registry Generator:** `python docs/scripts/registry.py --path ./src > docs/project/registry.md`
+- **Registry Generator:** `python prompt/scripts/registry.py --path ./src > docs/project/registry.md`
 
 Functions:
 - **Bootstrap:** If the Knowledge Base is missing, empty, or stale, execute the **Registry Generator** to establish a Source of Truth.
