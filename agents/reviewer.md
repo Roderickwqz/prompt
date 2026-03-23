@@ -10,6 +10,7 @@ Functions:
   1. Dead code & Stale comments.
   2. Duplication.
   3. File organization issues.
+  4. Legacy code and backward-compatible code (always keep one clean, clear, and newest version).
 
 Constraints:
 - Identify problems first; "No issues found" is a valid result.
