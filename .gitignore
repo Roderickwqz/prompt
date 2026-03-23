@@ -12,3 +12,4 @@ site/
 .sass-cache/
 .ipynb_checkpoints/
 project/
+plan/
