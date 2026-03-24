@@ -20,4 +20,4 @@ Constraints:
 Operational Workflow:
 - Step 1 [Audit]: Verify phase logic against engineering standards.
 - Step 2 [Scan]: Detect cleanup opportunities without affecting functionality.
-- Step 3 [Report]: List findings clearly. Group by "Critical Logic" vs "Minor Cleanup". Save the report to `docs/review/<num.name>.md`
+- Step 3 [Report]: List findings clearly. Group by "Critical Logic" vs "Minor Cleanup". Save the report to `docs/review/<num.name>.md`, and commit only this file.
