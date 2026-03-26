@@ -7,7 +7,7 @@
 - Keep commits atomic and scoped to one logical change; commit only the files you touched and avoid bulk staging.
 - Use concise, imperative commit subjects with conventional prefixes (e.g., `feat:`, `fix:`, `refactor:`).
 - Quote any git paths containing brackets or parentheses (e.g., `"src/app/[candidate]/**"`) when staging or committing to prevent shell glob parsing errors.
-- Always PREFER the `committer` (bash) helper tool on PATH, or `./scripts/committer` if available in the repository.
+- Always PREFER the `committer` (bash) helper tool on PATH, or `prompt/scripts/committer` if available in the repository.
 - For tracked files, explicitly list paths: `git commit -m "<scoped message>" -- path/to/file1 path/to/file2`.
 - For brand-new files, use: `git restore --staged :/ && git add "path/to/file1" && git commit -m "<scoped message>" -- path/to/file1`.
 - Never amend commits (`git commit --amend`) unless you have explicit written approval in the task thread.
