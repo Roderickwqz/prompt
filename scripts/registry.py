@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 import os
-import re
 import ast
 import argparse
 from dataclasses import dataclass
@@ -22,28 +21,60 @@ def clean_docstring(docstring: str) -> str:
     lines = [line.strip() for line in docstring.split('\n') if line.strip()]
     return lines[0] if lines else "No docstring provided."
 
-def get_signature(node: Any, lines: List[str]) -> str:
-    """Extract and format the signature of a function node."""
+def _format_ast_node(node: ast.AST | None) -> str:
+    if node is None:
+        return ""
     try:
-        start_line = node.lineno - 1
-        sig_parts = []
-        for i in range(start_line, len(lines)):
-            line = lines[i]
-            sig_parts.append(line.strip())
-            # Stop at the end of the definition (colon)
-            if ':' in line and '(' in "".join(sig_parts):
-                break
-        
-        full_sig = " ".join(sig_parts)
-        # Match 'def name(args) -> ret:' or 'async def name(args) -> ret:'
-        match = re.search(r'(?:async\s+)?def\s+\w+\s*\((.*)\)\s*(->\s*.*)?:', full_sig)
-        if match:
-            args = match.group(1).strip()
-            ret = match.group(2)
-            signature = f"({args})"
-            if ret:
-                signature += f" {ret.strip()}"
-            return signature
+        return ast.unparse(node)
+    except Exception:
+        return ""
+
+
+def _format_arg(arg: ast.arg, default: ast.expr | None = None) -> str:
+    rendered = arg.arg
+    annotation = _format_ast_node(arg.annotation)
+    if annotation:
+        rendered += f": {annotation}"
+    if default is not None:
+        default_text = _format_ast_node(default)
+        rendered += f" = {default_text}" if default_text else " = ..."
+    return rendered
+
+
+def get_signature(node: Any, lines: List[str] | None = None) -> str:
+    """Extract and format the signature of a function node."""
+    _ = lines
+    try:
+        args = node.args
+        rendered_params: list[str] = []
+
+        positional = list(args.posonlyargs) + list(args.args)
+        positional_defaults = [None] * (len(positional) - len(args.defaults)) + list(args.defaults)
+
+        for idx, arg in enumerate(args.posonlyargs):
+            rendered_params.append(_format_arg(arg, positional_defaults[idx]))
+        if args.posonlyargs:
+            rendered_params.append("/")
+
+        for offset, arg in enumerate(args.args, start=len(args.posonlyargs)):
+            rendered_params.append(_format_arg(arg, positional_defaults[offset]))
+
+        if args.vararg is not None:
+            rendered_params.append(_format_arg(args.vararg).join(["*", ""]))
+        elif args.kwonlyargs:
+            rendered_params.append("*")
+
+        for arg, default in zip(args.kwonlyargs, args.kw_defaults):
+            rendered_params.append(_format_arg(arg, default))
+
+        if args.kwarg is not None:
+            rendered_params.append(f"**{_format_arg(args.kwarg)}")
+
+        signature = f"({', '.join(rendered_params)})"
+        ret = _format_ast_node(getattr(node, "returns", None))
+        if ret:
+            signature += f" -> {ret}"
+        return signature
     except Exception:
         pass
     return "Signature unavailable"
